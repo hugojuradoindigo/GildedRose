@@ -12,26 +12,26 @@ class GildedRose<by> {
     }
 
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            if (!isAgedBrie(items[i]) && !isBackstagePasses(items[i])) {
-                decreaseQuality(items[i]);
+        for (Item item : items) {
+            if (!isAgedBrie(item) && !isBackstagePasses(item)) {
+                decreaseQuality(item);
             } else {
-                increaseQuality(items[i]);
+                increaseQuality(item);
             }
 
-            if (!isSulfuras(items[i])) {
-                decreaseSellIn(items[i]);
+            if (!isSulfuras(item)) {
+                decreaseSellIn(item);
             }
 
-            if (sellInPassed(items[i])) {
-                if (!isAgedBrie(items[i])) {
-                    if (!isBackstagePasses(items[i])) {
-                        decreaseQuality(items[i]);
+            if (sellInPassed(item)) {
+                if (!isAgedBrie(item)) {
+                    if (!isBackstagePasses(item)) {
+                        decreaseQuality(item);
                     } else {
-                        setZeroQuality(items[i]);
+                        setZeroQuality(item);
                     }
                 } else {
-                    increaseQuality(items[i]);
+                    increaseQuality(item);
                 }
             }
         }
