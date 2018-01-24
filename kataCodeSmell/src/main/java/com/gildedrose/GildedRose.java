@@ -1,6 +1,6 @@
 package com.gildedrose;
 
-class GildedRose {
+class GildedRose<by> {
 
     private final int MIN_QUALITY = 0;
     private final int MAX_QUALITY = 50;
@@ -17,23 +17,13 @@ class GildedRose {
                 decreaseQuality(items[i]);
             } else {
                 increaseQuality(items[i]);
-
-                if (isBackstagePasses(items[i])) {
-                    if (items[i].sellIn < 11) {
-                        increaseQuality(items[i]);
-                    }
-
-                    if (items[i].sellIn < 6) {
-                        increaseQuality(items[i]);
-                    }
-                }
             }
 
             if (!isSulfuras(items[i])) {
                 decreaseSellIn(items[i]);
             }
 
-            if (items[i].sellIn < 0) {
+            if (sellInPassed(items[i])) {
                 if (!isAgedBrie(items[i])) {
                     if (!isBackstagePasses(items[i])) {
                         decreaseQuality(items[i]);
@@ -62,6 +52,15 @@ class GildedRose {
     private void increaseQuality(Item item) {
         if (item.quality < MAX_QUALITY) {
             item.quality++;
+            
+            if (isBackstagePasses(item)) {
+                if (isMinorOrEqualTen(item)) {
+                    item.quality++;
+                }
+                if (isMinorOrEqualFive(item)) {
+                    item.quality++;
+                }
+            }
         }
     }
 
@@ -79,6 +78,18 @@ class GildedRose {
 
     private boolean isSulfuras(Item item) {
         return item.name.equals("Sulfuras, Hand of Ragnaros");
+    }
+    
+    private boolean isMinorOrEqualTen(Item item) {
+        return item.sellIn <= 10; 
+    }
+    
+    private boolean isMinorOrEqualFive(Item item) {
+        return item.sellIn <= 5; 
+    }
+    
+    private boolean sellInPassed(Item item) {
+        return item.sellIn < 0;
     }
 
 }
