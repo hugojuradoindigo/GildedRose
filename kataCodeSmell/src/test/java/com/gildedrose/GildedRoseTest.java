@@ -121,7 +121,7 @@ public class GildedRoseTest {
     }
     
     @Test
-    public void sulfuras_NeverHasToBeSoldOrDecreasesInQuality() {
+    public void sulfurasNeverHasToBeSoldOrDecreasesInQuality() {
         Item[] items = new Item[] { 
                 new Item("Sulfuras, Hand of Ragnaros", 2, 80)};
         GildedRose app = new GildedRose(items);
@@ -129,9 +129,21 @@ public class GildedRoseTest {
         
         Item item = app.getItem("Sulfuras, Hand of Ragnaros");
         
-        assertEquals("Sulfuras, Hand of Ragnaros", item.name);
         assertEquals(2, item.sellIn);
         assertEquals(80, item.quality);
+    }
+    
+    @Test 
+    public void conjuredItemsDegradeInQualityTwiceAsFast() {
+        Item[] items = new Item[] { 
+                new Item("Conjured", 2, 80)};
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        
+        Item item = app.getItem("Conjured");
+        
+        assertEquals(1, item.sellIn);
+        assertEquals(78, item.quality);
     }
     
 }

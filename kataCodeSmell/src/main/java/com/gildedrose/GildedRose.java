@@ -42,6 +42,9 @@ class GildedRose<by> {
             if (!isSulfuras(item)) {
                 item.quality--;
             }
+            if (isConjured(item)) {
+                item.quality--;
+            }
         }
     }
 
@@ -78,6 +81,10 @@ class GildedRose<by> {
 
     private boolean isSulfuras(Item item) {
         return item.name.equals("Sulfuras, Hand of Ragnaros");
+    }
+    
+    private boolean isConjured(Item item) {
+        return item.name.equals("Conjured");
     }
     
     private boolean isMinorOrEqualTen(Item item) {
