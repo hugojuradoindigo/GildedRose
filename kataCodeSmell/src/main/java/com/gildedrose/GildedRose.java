@@ -1,7 +1,8 @@
 package com.gildedrose;
 
 class GildedRose {
-    Item[] items;
+    
+    public final Item[] items;
 
     public GildedRose(Item[] items) {
         this.items = items;
@@ -13,7 +14,7 @@ class GildedRose {
                     && !items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                 if (items[i].quality > 0) {
                     if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                        items[i].quality = items[i].quality - 1;
+                        decreaseQuality(items[i]);
                     }
                 }
             } else {
@@ -37,7 +38,7 @@ class GildedRose {
             }
 
             if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                items[i].sellIn = items[i].sellIn - 1;
+                decreaseSellIn(items[i]);
             }
 
             if (items[i].sellIn < 0) {
@@ -45,7 +46,7 @@ class GildedRose {
                     if (!items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                         if (items[i].quality > 0) {
                             if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                                items[i].quality = items[i].quality - 1;
+                                decreaseQuality(items[i]);
                             }
                         }
                     } else {
@@ -58,5 +59,13 @@ class GildedRose {
                 }
             }
         }
+    }
+    
+    public void decreaseQuality(final Item item) {
+        item.quality --;
+    }
+    
+    public void decreaseSellIn(final Item item) {
+        item.sellIn --;
     }
 }
