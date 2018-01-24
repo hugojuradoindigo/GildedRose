@@ -37,7 +37,7 @@ class GildedRose<by> {
         }
     }
 
-    public void decreaseQuality(Item item) {
+    private void decreaseQuality(Item item) {
         if (item.quality > MIN_QUALITY) {
             if (!isSulfuras(item)) {
                 item.quality--;
@@ -45,7 +45,7 @@ class GildedRose<by> {
         }
     }
 
-    public void decreaseSellIn(Item item) {
+    private void decreaseSellIn(Item item) {
         item.sellIn--;
     }
 
@@ -92,4 +92,14 @@ class GildedRose<by> {
         return item.sellIn < 0;
     }
 
+    public Item getItem(String name) {
+        Item itemResult = null;
+        
+        for (Item item : items) {
+            if (item.name.equalsIgnoreCase(name)) {
+                itemResult = item;
+            }
+        }
+        return itemResult;
+    }
 }
