@@ -2,6 +2,8 @@ package com.gildedrose;
 
 class GildedRose {
     
+    private final int MIN_QUALITY = 0;
+    
     public final Item[] items;
 
     public GildedRose(Item[] items) {
@@ -11,11 +13,7 @@ class GildedRose {
     public void updateQuality() {
         for (int i = 0; i < items.length; i++) {
             if ( !isAgedBrie(items[i]) && !isBackstagePasses(items[i]) ) {
-                if (items[i].quality > 0) {
-                    if ( !isSulfuras(items[i]) ) {
-                        decreaseQuality(items[i]);
-                    }
-                }
+                decreaseQuality(items[i]);
             } else {
                 if (items[i].quality < 50) {
                     items[i].quality = items[i].quality + 1;
@@ -43,11 +41,7 @@ class GildedRose {
             if (items[i].sellIn < 0) {
                 if ( !isAgedBrie(items[i]) ) {
                     if ( !isBackstagePasses(items[i]) ) {
-                        if (items[i].quality > 0) {
-                            if ( !isSulfuras(items[i]) ) {
-                                decreaseQuality(items[i]);
-                            }
-                        }
+                        decreaseQuality(items[i]);
                     } else {
                         items[i].quality = items[i].quality - items[i].quality;
                     }
@@ -61,7 +55,11 @@ class GildedRose {
     }
     
     public void decreaseQuality(final Item item) {
-        item.quality --;
+        if ( item.quality > MIN_QUALITY ) {
+            if ( !isSulfuras(item) ) {
+                item.quality --;
+            }
+        }
     }
     
     public void decreaseSellIn(final Item item) {
